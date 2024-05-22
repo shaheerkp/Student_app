@@ -23,7 +23,7 @@ const FilterComponent = () => {
     }
     try {
       let { data } = await axios.get(
-        `http://localhost:3000/api/student?key=${searchParams}&value=${searchKeyWord}`
+        `api/student?key=${searchParams}&value=${searchKeyWord}`
       );
 
       dispatch(setStudents({ student: data.student, count: data.totalCount }));

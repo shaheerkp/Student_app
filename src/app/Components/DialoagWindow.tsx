@@ -21,12 +21,12 @@ const DialoagWindow: React.FC<DialogWindowProps> = ({ setOpen }) => {
       alert("All fields are mandatory");
       return;
     }
-    if(studentDetails.age===0){
+    if (studentDetails.age === 0) {
       alert("Age cannot be 0");
       return;
     }
     axios
-      .post("http://localhost:3000/api/student", studentDetails)
+      .post("api/student", studentDetails)
       .then((res) => {
         setOpen(false);
       })

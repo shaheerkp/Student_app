@@ -40,7 +40,7 @@ export default function StudentTable() {
   const getStudentData = async () => {
     try {
       let { data } = await axios.get(
-        `http://localhost:3000/api/student?rows=${rowsPerPage}&skip=${page}`
+        `api/student?rows=${rowsPerPage}&skip=${page}`
       );
       dispatch(setStudents({ student: data.student, count: data.totalCount }));
     } catch (error) {
