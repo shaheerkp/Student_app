@@ -10,7 +10,6 @@ import axios from "axios";
 import { useAppDispatch } from "@/redux/store";
 import { setStudents } from "@/redux/slices/userSlice";
 import Button from "@mui/material/Button";
-import { error } from "console";
 
 const FilterComponent = () => {
   const useDispatch = useAppDispatch();
