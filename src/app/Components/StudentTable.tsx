@@ -7,11 +7,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
-import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { useAppSelector } from "@/redux/store";
 import { setStudents } from "@/redux/slices/userSlice";
 import { Student } from "@prisma/client";
 import TablePagination from "@mui/material/TablePagination";
 import TableFooter from "@mui/material/TableFooter";
+import { useDispatch } from "react-redux";
 
 function createData(
   name: string,
@@ -25,9 +26,8 @@ function createData(
 export default function StudentTable() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = useState(0);
-  const useDispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const studentDetails = useAppSelector((state) => state.user);
-
 
   const rows = studentDetails?.student?.map((ele) => {
     return createData(ele.name, ele.age, ele.totalMark, ele.studentId);
@@ -37,16 +37,18 @@ export default function StudentTable() {
     setPage(newPage);
   };
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3000/api/student?rows=${rowsPerPage}&skip=${page}`)
-      .then(({ data }) => {
-        useDispatch(
-          setStudents({ student: data.student, count: data.totalCount })
-        );
-      })
-      .catch((err) => {});
-  }, [rowsPerPage, page]);
+  const getStudentData = async () => {
+    try {
+      let { data } = await axios.get(
+        `http://localhost:3000/api/student?rows=${rowsPerPage}&skip=${page}`
+      );
+      dispatch(setStudents({ student: data.student, count: data.totalCount }));
+    } catch (error) {
+      alert("Error");
+    }
+  };
+
+  useEffect(() => {}, [rowsPerPage, page]);
   return (
     <div>
       <TableContainer sx={{ maxWidth: 650 }} component={Paper}>
@@ -85,7 +87,8 @@ export default function StudentTable() {
         component="div"
         count={studentDetails.count}
         page={page}
-        onPageChange={handleChangePage}u
+        onPageChange={handleChangePage}
+        u
         rowsPerPageOptions={[5, 10, 25]}
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={(event) =>
