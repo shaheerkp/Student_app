@@ -1,7 +1,7 @@
 import { Student } from "@/types";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: { student: Student[]; count: Number } | undefined = {
+const initialState: { student: Student[]; count: number } | undefined = {
   student: [],
   count: 0,
 };
@@ -12,7 +12,7 @@ export const UserSlice = createSlice({
   reducers: {
     setStudents: (
       state,
-      action: PayloadAction<{ student: Student[]; count: Number }>
+      action: PayloadAction<{ student: Student[]; count: number }>
     ) => {
       state.student = action.payload.student;
       state.count = action.payload.count;

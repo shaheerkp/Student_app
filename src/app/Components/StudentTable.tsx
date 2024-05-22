@@ -48,7 +48,9 @@ export default function StudentTable() {
     }
   };
 
-  useEffect(() => {}, [rowsPerPage, page]);
+  useEffect(() => {
+    getStudentData();
+  }, [rowsPerPage, page]);
   return (
     <div>
       <TableContainer sx={{ maxWidth: 650 }} component={Paper}>
@@ -88,7 +90,6 @@ export default function StudentTable() {
         count={studentDetails.count}
         page={page}
         onPageChange={handleChangePage}
-        u
         rowsPerPageOptions={[5, 10, 25]}
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={(event) =>
