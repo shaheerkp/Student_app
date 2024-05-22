@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContentText from "@mui/material/DialogContentText";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import { useAppDispatch } from "@/redux/store";
 import { setStudents } from "@/redux/slices/userSlice";
 import Button from "@mui/material/Button";
+import { useDispatch } from "react-redux";
 
 const FilterComponent = () => {
-  const useDispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
   const [searchParams, setFilterParams] = useState("");
@@ -28,11 +26,10 @@ const FilterComponent = () => {
         `http://localhost:3000/api/student?key=${searchParams}&value=${searchKeyWord}`
       );
 
-      useDispatch(
-        setStudents({ student: data.student, count: data.totalCount })
-      );
-    } catch (error) {}
-    alert(error);
+      dispatch(setStudents({ student: data.student, count: data.totalCount }));
+    } catch (error) {
+      alert("error");
+    }
   };
 
   return (
